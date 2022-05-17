@@ -1,14 +1,38 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-	<title>Spring App</title>
+    <title>Home Page</title>
 </head>
 <body>
-<h1>Risha`s app</h1>
 
-<p>Click <a th:href="@{/hello}">here</a> to see a greeting.</p>
-<p>Click <a th:href="@{/registration}">here</a> to sign up.</p>
-<p>Click <a th:href="@{/albedo}">here</a> to read about Albedo.</p>
-<p>Click <a th:href="@{/zhongli}">here</a> to read about Zhongli.</p>
+<h1>Simple spring security app</h1>
+<div sec:authorize="isAuthenticated()">
+    <h1 th:inline="text">Welcome, [[${#httpServletRequest.remoteUser}]]!</h1>
+    <p>Click <a th:href="@{/news}">here</a> to see news.</p>
+    <p>Click <a th:href="@{/albedo}">here</a> to read about Albedo.</p>
+    <p>Click <a th:href="@{/zhongli}">here</a> to read about Zhongli.</p>
+    <p>Click <a th:href="@{/logout}">here</a> to sign out.</p>
+</div>
+
+<div sec:authorize="isAnonymous()">
+    <h3> Log in to see information for authorized users (つ✧ω✧)つ</h3>
+    <p>Click <a th:href="@{/login}">here</a> to sign in.</p>
+    <p>Click <a th:href="@{/registration}">here</a> to sign up.</p>
+</div>
+
+<!--<div>-->
+<!--	<h3>Welcome, <sec:authentication property="name"/></h3>-->
+<!--	<sec:authorize access="!isAuthenticated()">-->
+<!--		<h4><a href="/login">Войти</a></h4>-->
+<!--		<h4><a href="/registration">Зарегистрироваться</a></h4>-->
+<!--	</sec:authorize>-->
+<!--	<sec:authorize access="isAuthenticated()">-->
+<!--		<h4><a href="/logout">Выйти</a></h4>-->
+<!--	</sec:authorize>-->
+<!--	<h4><a href="/news">Новости (только пользователь)</a></h4>-->
+<!--	<h4><a href="/admin">Пользователи (только админ)</a></h4>-->
+<!--</div>-->
 </body>
 </html>

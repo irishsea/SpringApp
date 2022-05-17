@@ -37,18 +37,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
+                //доступ для всех пользователей
                 .antMatchers("/", "/home", "/registration", "/perform_registration").permitAll()
+//              .antMatchers("/news", "/albedo", "/zhongli").hasRole("USER")
+//                добавить сюда страницу админа
+//                далее доступ только для аутентифицированных пользователей
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/perform_login")
-//                .defaultSuccessUrl("/",true)
+                .defaultSuccessUrl("/home")
                 .failureUrl("/login.html?error=true")
                 .permitAll()
                 .and()
                 .logout()
-                .permitAll();
+                .permitAll()
+                .logoutSuccessUrl("/home");
 
 
 //        http
@@ -78,16 +83,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //    }
     }
 
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("password")
-//                        .roles("USER")
-//                        .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//    }
+
 }
