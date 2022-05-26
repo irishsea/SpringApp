@@ -5,16 +5,28 @@
     <title>sign in</title>
 </head>
 <body>
-<div th:if="${param.error}">
-    Invalid username and password.
-</div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
 <form th:action="@{/perform_login}" method="post">
-    <label> User Name : <input type="text" name="username"/> </label>
-    <label> Password: <input type="password" name="password"/> </label>
-    <input type="submit" value="Sign In"/>
+    <p class="fw-normal">Please sign in</p>
+    <div th:if="${param.error}">
+        <div class="alert alert-danger">
+            Invalid username and password.
+        </div>
+    </div>
+    <div th:if="${param.logout}" class="alert alert-danger">
+        You have been logged out.
+    </div>
+    <div class="form-control">
+        <input type="text" placeholder="Your e-mail:" name="username">
+    </div>
+    <div class="form-control">
+        <input type="password" placeholder="Your password:" name="password">
+    </div>
+    <div class="form-control">
+        <input type="checkbox" value="remember-me"> Remember me
+    </div>
+    <div class="form-control">
+        <button class="button" type="submit">Submit</button>
+    </div>
 </form>
 </body>
 </html>

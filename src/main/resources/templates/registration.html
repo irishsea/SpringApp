@@ -9,6 +9,11 @@
 <h1>Please sign up </h1>
 
 <form th:action="@{/perform_registration}" method="post" th:object="${form}">
+    <div th:if="${param.error}">
+        <div class="alert alert-danger">
+            Invalid username and password.
+        </div>
+    </div>
     <label> User Name : <input type="text" name="username"/> </label>
     <label> Password: <input type="password" name="password"/> </label>
     <input type="submit" value="Sign Up"/>
